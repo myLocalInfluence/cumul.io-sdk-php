@@ -80,7 +80,7 @@ class Cumulio {
     $query['key'] = $this->apiKey;
     $query['token'] = $this->apiToken;
     $query['version'] = $this->apiVersion;
-    $payload = json_encode($query);
+    $payload = json_encode($query, JSON_PRETTY_PRINT);
 
     $curl = curl_init();
     $curl_options = array(
@@ -94,7 +94,7 @@ class Cumulio {
       CURLOPT_POSTFIELDS     => $payload
     );
     curl_setopt_array($curl, $curl_options);
-    return json_decode(curl_exec($curl), $this->format === 'array' ? true : false);
+    return json_decode(curl_exec($curl), $this->format === 'array' ? true : false, 512, JSON_THROW_ON_ERROR);
   }
 
 }
